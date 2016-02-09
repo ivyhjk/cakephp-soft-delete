@@ -41,10 +41,12 @@ class SoftDeletableBehavior extends ModelBehavior
 
 		if (!$this->checkForDeletedField($model, $query['conditions'])) {
 			$find_condition = $this->findConditionToExcludeDeleted($model);
-			if (is_array($query['conditions'])) {
-				$query['conditions'] += $find_condition;
-			} else {
-				$query['conditions'] = $find_condition;
+			if ($find_condition) {
+				if (is_array($query['conditions'])) {
+					$query['conditions'] += $find_condition;
+				} else {
+					$query['conditions'] = $find_condition;
+				}
 			}
 		}
 
